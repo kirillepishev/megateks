@@ -1,0 +1,48 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}{{ product.name }} - Мегатекс{% endblock %}
+
+{% block content %}
+<div style="background: white; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <a href="{% url 'shop:catalog' %}" style="color: #c41e3a; text-decoration: none; margin-bottom: 1rem; display: inline-block;">
+        ← Назад в каталог
+    </a>
+    
+    <h2 style="margin-bottom: 1rem; color: #333;">{{ product.name }}</h2>
+    <p style="color: #666; margin-bottom: 2rem;">Категория: {{ product.category.name }}</p>
+    
+    <div style="margin-bottom: 2rem;">
+        <h3 style="margin-bottom: 0.5rem;">Описание</h3>
+        <p style="color: #555; line-height: 1.6;">{{ product.description }}</p>
+    </div>
+    
+    {% if product.specifications %}
+        <div style="margin-bottom: 2rem;">
+            <h3 style="margin-bottom: 0.5rem;">Характеристики</h3>
+            <p style="color: #555; line-height: 1.6;">{{ product.specifications }}</p>
+        </div>
+    {% endif %}
+    
+    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <p style="font-size: 2rem; font-weight: bold; color: #c41e3a; margin-bottom: 0.5rem;">
+            {{ product.price }} ₽
+        </p>
+        <p style="color: {% if product.stock_quantity > 0 %}#27ae60{% else %}#e74c3c{% endif %};">
+            {% if product.stock_quantity > 0 %}
+                ✓ В наличии: {{ product.stock_quantity }} шт.
+            {% else %}
+                ✗ Нет в наличии
+            {% endif %}
+        </p>
+    </div>
+    
+    {% if product.stock_quantity > 0 %}
+        <form method="post" action="{% url 'shop:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                Добавить в корзину
+            </button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Каталог оборудования - Мегатекс{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 20px; color: #333; font-size: 24px;">
+    {% if current_category %}
+        {{ current_category.name }}
+    {% else %}
+        Все оборудование
+    {% endif %}
+</h2>
+
+{% if products %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+        {% for product in products %}
+            <div style="background: white; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                <div style="padding: 20px;">
+                    <h3 style="margin-bottom: 10px; color: #333; font-size: 16px; min-height: 48px;">
+                        <a href="{% url 'shop:product_detail' product.id %}" style="color: #333; text-decoration: none;">
+                            {{ product.name }}
+                        </a>
+                    </h3>
+                    
+                    {% if product.article %}
+                        <p style="color: #999; font-size: 12px; margin-bottom: 10px;">
+                            Арт: {{ product.article }}
+                        </p>
+                    {% endif %}
+                    
+                    <p style="color: #666; font-size: 13px; margin-bottom: 15px; line-height: 1.5; min-height: 60px;">
+                        {{ product.description|truncatewords:15 }}
+                    </p>
+                    
+                    {% if product.specifications %}
+                        <p style="color: #888; font-size: 12px; margin-bottom: 15px; background: #f8f8f8; padding: 10px; border-radius: 3px;">
+                            {{ product.specifications|truncatewords:10 }}
+                        </p>
+                    {% endif %}
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f0f0f0;">
+                        <div>
+                            <p style="font-size: 20px; font-weight: bold; color: #c41e3a;">
+                                {{ product.price }} ₽
+                            </p>
+                            <p style="font-size: 12px; color: {% if product.stock_quantity > 0 %}#27ae60{% else %}#e74c3c{% endif %};">
+                                {% if product.stock_quantity > 0 %}
+                                    ✓ В наличии
+                                {% else %}
+                                    ✗ Под заказ
+                                {% endif %}
+                            </p>
+                        </div>
+                        <a href="{% url 'shop:product_detail' product.id %}" class="btn" style="font-size: 12px; padding: 8px 15px;">
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div style="background: white; padding: 40px; text-align: center; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <p style="font-size: 18px; color: #666;">
+            Товары в данной категории отсутствуют
+        </p>
+        <a href="{% url 'shop:catalog' %}" class="btn mt-20">
+            Вернуться в каталог
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

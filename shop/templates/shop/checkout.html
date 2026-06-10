@@ -1,0 +1,42 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Оформление заказа - Мегатекс{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 2rem; color: #c41e3a;">📝 Оформление заказа</h2>
+
+<div style="background: white; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Контактное лицо</label>
+            <input type="text" name="contact_person" required 
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Телефон</label>
+            <input type="tel" name="phone" required 
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+            <input type="email" name="email" required 
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Адрес доставки</label>
+            <textarea name="address" rows="3" required 
+                      style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"></textarea>
+        </div>
+        
+        <div style="text-align: right;">
+            <button type="submit" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                Подтвердить заказ
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

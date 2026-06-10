@@ -1,0 +1,31 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Личный кабинет - Мегатекс{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 2rem; color: #c41e3a;">👤 Личный кабинет</h2>
+
+<div style="background: white; border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <h3 style="margin-bottom: 1rem;">{{ user.username }}</h3>
+    <p style="color: #666;">Email: {{ user.email }}</p>
+</div>
+
+<h3 style="margin-bottom: 1rem;">Мои заказы</h3>
+
+{% if orders %}
+    {% for order in orders %}
+        <div style="background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <strong>Заказ #{{ order.id }} от {{ order.created_at|date:"d.m.Y H:i" }}</strong>
+                <span style="padding: 0.25rem 0.75rem; background: {% if order.status == 'new' %}#f39c12{% elif order.status == 'processing' %}#3498db{% elif order.status == 'completed' %}#27ae60{% else %}#95a5a6{% endif %}; 
+                       color: white; border-radius: 5px;">
+                    {{ order.get_status_display }}
+                </span>
+            </div>
+            <p>Сумма: {{ order.total_price }} ₽</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p style="color: #666;">У вас пока нет заказов</p>
+{% endif %}
+{% endblock %}

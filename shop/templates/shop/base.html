@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мегатекс - Оборудование для общепита{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; color: #333; line-height: 1.6; }
+        .top-bar { background: #2c3e50; color: #fff; padding: 10px 0; font-size: 13px; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .top-bar-left { display: flex; gap: 20px; flex-wrap: wrap; }
+        .top-bar-left span { display: flex; align-items: center; gap: 5px; }
+        .top-bar-right { display: flex; gap: 15px; align-items: center; }
+        .top-bar a { color: #fff; text-decoration: none; }
+        .middle-bar { background: #fff; padding: 20px 0; border-bottom: 1px solid #e0e0e0; }
+        .middle-bar .container { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        .logo { flex-shrink: 0; }
+        .logo h1 { color: #c41e3a; font-size: 2rem; font-weight: bold; margin-bottom: 5px; }
+        .logo p { color: #666; font-size: 12px; }
+        .search-box { flex: 1; max-width: 500px; display: flex; }
+        .search-box input { flex: 1; padding: 10px 15px; border: 2px solid #c41e3a; border-right: none; border-radius: 5px 0 0 5px; font-size: 14px; }
+        .search-box button { padding: 10px 20px; background: #c41e3a; color: white; border: 2px solid #c41e3a; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 14px; }
+        .cart-widget { display: flex; align-items: center; gap: 10px; padding: 10px 20px; background: #f8f8f8; border-radius: 5px; text-decoration: none; color: #333; }
+        .cart-widget .cart-icon { font-size: 24px; }
+        .cart-widget .cart-total { color: #c41e3a; font-weight: bold; font-size: 16px; }
+        .main-nav { background: #c41e3a; }
+        .main-nav ul { list-style: none; display: flex; flex-wrap: wrap; }
+        .main-nav a { display: block; color: white; text-decoration: none; padding: 15px 20px; font-size: 14px; font-weight: 500; text-transform: uppercase; transition: background 0.3s; }
+        .main-nav a:hover, .main-nav a.active { background: #a01830; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .main-content { padding: 20px 0; min-height: 500px; }
+        .content-wrapper { display: grid; grid-template-columns: 250px 1fr 280px; gap: 20px; }
+        @media (max-width: 992px) { .content-wrapper { grid-template-columns: 1fr; } .sidebar-right { display: none; } }
+        .sidebar-left { background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .sidebar-left h3 { background: #c41e3a; color: white; padding: 15px; font-size: 16px; text-transform: uppercase; }
+        .sidebar-left ul { list-style: none; }
+        .sidebar-left li { border-bottom: 1px solid #f0f0f0; }
+        .sidebar-left a { display: block; padding: 12px 15px; color: #333; text-decoration: none; font-size: 14px; transition: background 0.3s; }
+        .sidebar-left a:hover { background: #f8f8f8; color: #c41e3a; }
+        .sidebar-left a.active { background: #f8f8f8; color: #c41e3a; font-weight: bold; }
+        .sidebar-right .promo-block { background: #fff; border-radius: 5px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .promo-block .promo-content { padding: 15px; }
+        .promo-block h4 { color: #c41e3a; margin-bottom: 10px; }
+        .promo-block .btn-small { display: inline-block; padding: 8px 15px; background: #c41e3a; color: white; text-decoration: none; border-radius: 3px; font-size: 12px; text-transform: uppercase; }
+        .advantages { background: #fff; padding: 30px 0; margin-top: 30px; }
+        .advantages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .advantage-item { text-align: center; }
+        .advantage-icon { width: 60px; height: 60px; background: #c41e3a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 15px; }
+        .advantage-item h4 { margin-bottom: 10px; color: #333; }
+        .advantage-item p { color: #666; font-size: 14px; }
+        footer { background: #2c3e50; color: white; padding: 40px 0 20px; margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 30px; }
+        .footer-col h4 { color: #c41e3a; margin-bottom: 15px; font-size: 16px; text-transform: uppercase; }
+        .footer-col p { margin-bottom: 10px; font-size: 14px; color: #ccc; }
+        .footer-col a { color: #ccc; text-decoration: none; }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom { border-top: 1px solid #444; padding-top: 20px; text-align: center; font-size: 12px; color: #999; }
+        .btn { display: inline-block; padding: 10px 20px; background: #c41e3a; color: white; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; font-size: 14px; transition: background 0.3s; }
+        .btn:hover { background: #a01830; }
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .logout-btn { background: none; border: none; color: white; cursor: pointer; font-size: 13px; text-decoration: underline; padding: 0; }
+    </style>
+</head>
+<body>
+    <!-- Верхняя панель -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <span>📍 г. Ставрополь, ул. Индустриальная, 49</span>
+                <span>📞 8(8652)34-99-24</span>
+                <span>✉️ info@megateksk.ru</span>
+                <span>🕐 9:00-18:00</span>
+            </div>
+            <div class="top-bar-right">
+                {% if user.is_authenticated %}
+                    <span>👤 {{ user.username }}</span>
+                    <a href="{% url 'shop:profile' %}">Кабинет</a>
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Выйти</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Войти</a>
+                    <a href="{% url 'shop:register' %}">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Средняя панель -->
+    <div class="middle-bar">
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'shop:home' %}" style="text-decoration: none;">
+                    <h1>Мегатекс</h1>
+                    <p>Оборудование, посуда для ресторана, кафе и столовой</p>
+                </a>
+            </div>
+            
+            <form class="search-box" method="get" action="{% url 'shop:catalog' %}">
+                <input type="text" name="q" placeholder="Поиск товаров" value="{{ request.GET.q }}">
+                <button type="submit">🔍</button>
+            </form>
+            
+            <a href="{% url 'shop:cart' %}" class="cart-widget">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-total">{{ cart_total|default:"0.00" }} ₽</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Меню навигации -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="{% url 'shop:home' %}">Главная</a></li>
+                <li><a href="{% url 'shop:catalog' %}">Каталог</a></li>
+                <li><a href="#">Статьи</a></li>
+                <li><a href="#">Сервис</a></li>
+                <li><a href="#">Новости</a></li>
+                <li><a href="#">Наши проекты</a></li>
+                <li><a href="#">Доставка</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Левый сайдбар -->
+                <aside class="sidebar-left">
+                    <h3>📦 КАТАЛОГ</h3>
+                    <ul>
+                        <li><a href="{% url 'shop:catalog' %}">Все категории</a></li>
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'shop:catalog' %}?category={{ category.id }}">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </aside>
+                
+                <!-- Центральный контент -->
+                <div class="content-main">
+                    {% block content %}{% endblock %}
+                </div>
+                
+                <!-- Правый сайдбар -->
+                <aside class="sidebar-right">
+                    <div class="promo-block">
+                        <div class="promo-content">
+                            <h4>🔧 Сервис</h4>
+                            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                                Профессиональное обслуживание оборудования
+                            </p>
+                            <a href="#" class="btn-small">Заказать</a>
+                        </div>
+                    </div>
+                    <div class="promo-block">
+                        <div class="promo-content">
+                            <h4>🤝 Наши Партнёры</h4>
+                            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                                Работаем с ведущими производителями
+                            </p>
+                            <a href="#" class="btn-small">Читать далее</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>СТАВРОПОЛЬ</h4>
+                    <p>г. Ставрополь, ул. Индустриальная, 49</p>
+                    <p><a href="mailto:info@megateksk.ru">info@megateksk.ru</a></p>
+                    <p><a href="mailto:market@megateksk.ru">market@megateksk.ru</a></p>
+                    <p>8-8652-65-53-34</p>
+                    <p style="margin-top: 15px;"><strong>Время работы:</strong></p>
+                    <p>9:00 — 18:00, сб 10:00 — 17:00</p>
+                </div>
+                <div class="footer-col">
+                    <h4>СИМФЕРОПОЛЬ</h4>
+                    <p>Республика Крым, г. Симферополь, ул. Луговая 8Д</p>
+                    <p><a href="mailto:simf@megateksk.ru">simf@megateksk.ru</a></p>
+                    <p>8-800-555-71-06</p>
+                    <p style="margin-top: 15px;"><strong>Время работы:</strong></p>
+                    <p>9:00 — 18:00, сб 10:00 — 15:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Информация о товарах НЕ ЯВЛЯЕТСЯ публичной офертой.</p>
+                <p style="margin-top: 10px;">© 2026 ООО "Компания Мегатекс" © Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

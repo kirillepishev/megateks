@@ -1,0 +1,103 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Мегатекс - Оборудование для общепита в Ставрополе{% endblock %}
+
+{% block content %}
+<!-- Главный баннер -->
+<div style="background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%); padding: 60px 40px; border-radius: 5px; margin-bottom: 30px; color: white; position: relative; overflow: hidden;">
+    <div style="max-width: 600px; position: relative; z-index: 2;">
+        <h2 style="font-size: 36px; margin-bottom: 20px; line-height: 1.2;">
+            Профессиональное оборудование<br>для ресторанов и кафе
+        </h2>
+        <p style="font-size: 18px; margin-bottom: 30px; opacity: 0.9;">
+            Более 10 000 наименований оборудования от ведущих производителей
+        </p>
+        <a href="{% url 'shop:catalog' %}" class="btn" style="font-size: 16px; padding: 15px 30px;">
+            Перейти в каталог
+        </a>
+    </div>
+    <div style="position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 200px; opacity: 0.1;">
+        🍳
+    </div>
+</div>
+
+<!-- О компании -->
+<div style="background: white; padding: 40px; border-radius: 5px; margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <h2 style="color: #c41e3a; margin-bottom: 20px; font-size: 28px;">О компании Мегатекс</h2>
+    <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 15px;">
+        ООО "Мегатекс" — ведущий поставщик профессионального оборудования для предприятий общественного питания в Ставропольском крае и Республике Крым.
+    </p>
+    <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 15px;">
+        Мы предлагаем широкий ассортимент оборудования для ресторанов, кафе, столовых, пекарен и кофеен: от вытяжных зонтов и жарочных шкафов до холодильных витрин и взбивальных машин.
+    </p>
+    <p style="font-size: 16px; line-height: 1.8; color: #555;">
+        Наша компания работает напрямую с ведущими производителями, что позволяет предлагать конкурентные цены и гарантированное качество продукции.
+    </p>
+</div>
+
+<!-- Популярные категории -->
+<div style="margin-bottom: 30px;">
+    <h2 style="color: #333; margin-bottom: 20px; font-size: 28px;">Популярные категории</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+        {% for category in categories|slice:":6" %}
+            <a href="{% url 'shop:catalog' %}?category={{ category.id }}" 
+               style="background: white; padding: 25px; border-radius: 5px; text-decoration: none; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.3s; border-left: 4px solid #c41e3a;">
+                <h3 style="font-size: 18px; margin-bottom: 10px; color: #c41e3a;">{{ category.name }}</h3>
+                <p style="font-size: 14px; color: #666;">
+                    {% with product_count=category.products.count %}
+                        {{ product_count }} товаров
+                    {% endwith %}
+                </p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Преимущества -->
+<div style="background: white; padding: 40px; border-radius: 5px; margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <h2 style="color: #333; margin-bottom: 30px; font-size: 28px; text-align: center;">Почему выбирают нас</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        
+        <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #c41e3a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px;">
+                🚚
+            </div>
+            <h3 style="margin-bottom: 15px; color: #333;">Быстрая доставка</h3>
+            <p style="color: #666; line-height: 1.6;">
+                Собственный автопарк позволяет доставлять оборудование в кратчайшие сроки по всему региону
+            </p>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #c41e3a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px;">
+                🔧
+            </div>
+            <h3 style="margin-bottom: 15px; color: #333;">Сервисное обслуживание</h3>
+            <p style="color: #666; line-height: 1.6;">
+                Профессиональный монтаж, пуско-наладка и техническое обслуживание оборудования
+            </p>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #c41e3a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px;">
+                💰
+            </div>
+            <h3 style="margin-bottom: 15px; color: #333;">Выгодные цены</h3>
+            <p style="color: #666; line-height: 1.6;">
+                Прямые поставки от производителей и гибкая система скидок для постоянных клиентов
+            </p>
+        </div>
+        
+        <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #c41e3a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px;">
+                ✅
+            </div>
+            <h3 style="margin-bottom: 15px; color: #333;">Гарантия качества</h3>
+            <p style="color: #666; line-height: 1.6;">
+                Все оборудование сертифицировано и имеет официальную гарантию производителя
+            </p>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

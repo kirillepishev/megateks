@@ -1,0 +1,11 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Выход - Мегатекс{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 40px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <h2 style="margin-bottom: 20px; color: #c41e3a;">Вы вышли из системы</h2>
+    <p style="margin-bottom: 20px; color: #666;">Вы успешно вышли из своего аккаунта.</p>
+    <a href="{% url 'shop:home' %}" class="btn">Вернуться на главную</a>
+</div>
+{% endblock %}

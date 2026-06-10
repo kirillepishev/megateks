@@ -1,0 +1,57 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Корзина - Мегатекс{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 2rem; color: #c41e3a;">🛒 Корзина</h2>
+
+{% if cart_items %}
+    <div style="background: white; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid #f0f0f0;">
+                    <th style="text-align: left; padding: 1rem;">Товар</th>
+                    <th style="text-align: center; padding: 1rem;">Количество</th>
+                    <th style="text-align: right; padding: 1rem;">Цена</th>
+                    <th style="text-align: right; padding: 1rem;">Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                        <td style="padding: 1rem;">{{ item.product.name }}</td>
+                        <td style="text-align: center; padding: 1rem;">{{ item.quantity }}</td>
+                        <td style="text-align: right; padding: 1rem;">{{ item.product.price }} ₽</td>
+                        <td style="text-align: right; padding: 1rem; font-weight: bold;">{{ item.total }} ₽</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align: right; padding: 1.5rem; font-size: 1.2rem; font-weight: bold;">
+                        Итого:
+                    </td>
+                    <td style="text-align: right; padding: 1.5rem; font-size: 1.5rem; font-weight: bold; color: #c41e3a;">
+                        {{ total }} ₽
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div style="margin-top: 2rem; text-align: right;">
+            <a href="{% url 'shop:checkout' %}" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                Оформить заказ
+            </a>
+        </div>
+    </div>
+{% else %}
+    <div style="background: white; border-radius: 8px; padding: 3rem; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">
+            Ваша корзина пуста
+        </p>
+        <a href="{% url 'shop:catalog' %}" class="btn">
+            Перейти в каталог
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

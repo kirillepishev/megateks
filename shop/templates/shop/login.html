@@ -1,0 +1,38 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Вход - Мегатекс{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <h2 style="margin-bottom: 2rem; color: #c41e3a; text-align: center;">Вход в систему</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Имя пользователя</label>
+            <input type="text" name="username" required 
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Пароль</label>
+            <input type="password" name="password" required 
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+        </div>
+        
+        <button type="submit" class="btn" style="width: 100%; padding: 1rem;">
+            Войти
+        </button>
+    </form>
+    
+    {% if form.errors %}
+        <p style="color: #e74c3c; margin-top: 1rem; text-align: center;">
+            Неверное имя пользователя или пароль
+        </p>
+    {% endif %}
+
+    <p style="text-align: center; margin-top: 1.5rem;">
+        Нет аккаунта? <a href="{% url 'shop:register' %}" style="color: #c41e3a; text-decoration: none;">Зарегистрироваться</a>
+    </p>
+</div>
+{% endblock %}
