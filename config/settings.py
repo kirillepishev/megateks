@@ -126,3 +126,6 @@ LOGOUT_REDIRECT_URL = 'shop:home'      # Куда идти после выход
 LOGIN_URL = 'login'                    # Адрес страницы входа
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
